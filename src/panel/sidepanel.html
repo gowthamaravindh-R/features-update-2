@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verity AI — Evidence-First Fact Verification</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body data-theme="dark">
+
+  <!-- ══════════════════════════════════════
+       TOP NAVIGATION BAR
+       ══════════════════════════════════════ -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <svg class="brand-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="brand-text">
+        <span class="brand-name">Verity AI</span>
+        <span class="brand-tag">Evidence-First</span>
+      </div>
+    </div>
+
+    <nav class="topbar-nav">
+      <button class="nav-pill active" id="navChatBtn" title="Verify text">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M2 4a2 2 0 012-2h8a2 2 0 012 2v5a2 2 0 01-2 2H9l-3 2v-2H4a2 2 0 01-2-2V4z" stroke="currentColor" stroke-width="1.3"/></svg>
+        Verify
+      </button>
+      <button class="nav-pill" id="navResultsBtn" title="View results" style="display:none;">
+        <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M5 8h6M5 5h4M5 11h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        Results
+      </button>
+    </nav>
+
+    <div class="topbar-actions">
+      <button class="icon-action" id="settingsToggle" title="API Settings">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 10a2 2 0 100-4 2 2 0 000 4z" stroke="currentColor" stroke-width="1.3"/><path d="M13.3 8a5.6 5.6 0 00-.1-.9l1.4-1.1-1.3-2.3-1.7.7A5.5 5.5 0 009.7 3.5L9.5 1.7h-3l-.2 1.8c-.5.2-1 .5-1.4.8L3.2 3.6 1.9 5.9l1.4 1.1A5.5 5.5 0 003.2 8c0 .3 0 .6.1.9L1.9 10l1.3 2.3 1.7-.7c.4.3.9.6 1.4.8l.2 1.8h3l.2-1.8c.5-.2 1-.5 1.4-.8l1.7.7L13.3 10l-1.4-1.1c.1-.3.1-.6.1-.9h1.3z" stroke="currentColor" stroke-width="1.2"/></svg>
+      </button>
+      <button class="icon-action" id="themeToggle" title="Toggle theme">
+        <svg viewBox="0 0 16 16" fill="none" id="themeIcon"><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.3"/></svg>
+      </button>
+      <button class="icon-action" id="fullscreenToggle" title="Open in window">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M5 2H3a1 1 0 00-1 1v2M11 2h2a1 1 0 011 1v2M5 14H3a1 1 0 01-1-1v-2M11 14h2a1 1 0 001-1v-2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════
+       MAIN CONTENT
+       ══════════════════════════════════════ -->
+  <main class="workspace">
+
+    <!-- ── INPUT SECTION ── -->
+    <section id="inputSection" class="view active">
+
+      <div class="section-intro">
+        <h2 class="section-title">Fact Verification</h2>
+        <p class="section-sub">Claims are evaluated strictly against retrieved source evidence. No AI memory used as truth source.</p>
+      </div>
+
+      <!-- Primary Input Card -->
+      <div class="card">
+        <div class="field-group">
+          <label class="field-label" for="textInput">
+            <svg viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M4 5h6M4 7h4M4 9h5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Text to Verify
+          </label>
+          <textarea
+            id="textInput"
+            class="field-textarea"
+            placeholder="Paste any text or AI-generated response here…&#10;&#10;Example: The Eiffel Tower was completed in 1889 and stands 324 metres tall. It was designed by Gustave Eiffel for the World's Fair."
+            rows="7"
+            spellcheck="false"
+          ></textarea>
+          <span class="field-hint">Right-click selected text on any webpage → "Check with Verity AI" to auto-fill.</span>
+        </div>
+
+        <div class="field-group" style="margin-top:16px;">
+          <label class="field-label" for="promptInput">
+            <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M7 4v3l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Original Prompt
+            <span class="optional-tag">Optional — for faithfulness analysis</span>
+          </label>
+          <textarea
+            id="promptInput"
+            class="field-textarea"
+            placeholder="If this text is an AI response, paste the original prompt here to check instruction adherence…"
+            rows="2"
+            spellcheck="false"
+          ></textarea>
+        </div>
+
+        <div class="action-row">
+          <button class="btn-primary" id="analyzeBtn">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M8 2a6 6 0 110 12A6 6 0 018 2z" stroke="currentColor" stroke-width="1.4"/><path d="M5 8h6M8 5v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Run Verification
+          </button>
+          <button class="btn-ghost" id="clearBtn">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Clear
+          </button>
+        </div>
+      </div>
+
+      <!-- Capability Pills -->
+      <div class="capability-grid">
+        <div class="cap-item">
+          <div class="cap-dot dot-blue"></div>
+          <div class="cap-body">
+            <span class="cap-title">NLI Classification</span>
+            <span class="cap-desc">Claim↔evidence entailment</span>
+          </div>
+        </div>
+        <div class="cap-item">
+          <div class="cap-dot dot-purple"></div>
+          <div class="cap-body">
+            <span class="cap-title">Weighted Scoring</span>
+            <span class="cap-desc">Deterministic signal math</span>
+          </div>
+        </div>
+        <div class="cap-item">
+          <div class="cap-dot dot-teal"></div>
+          <div class="cap-body">
+            <span class="cap-title">Source Retrieval</span>
+            <span class="cap-desc">Wikipedia + live web</span>
+          </div>
+        </div>
+        <div class="cap-item">
+          <div class="cap-dot dot-amber"></div>
+          <div class="cap-body">
+            <span class="cap-title">Faithfulness Audit</span>
+            <span class="cap-desc">Prompt alignment check</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ── LOADING SECTION ── -->
+    <section id="loadingSection" class="view">
+      <div class="loader-wrap">
+        <div class="loader-icon-ring">
+          <svg class="spinner-ring" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="31.4 94.2" stroke-linecap="round"/></svg>
+          <svg class="loader-shield" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 class="loader-title" id="loadingTitle">Verifying Claims</h3>
+        <p class="loader-message" id="loadingMessage">Retrieving reference sources and computing evidence signals…</p>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressBarFill" style="width:5%"></div>
+        </div>
+        <div class="progress-label" id="progressLabel">Initialising engine…</div>
+      </div>
+    </section>
+
+    <!-- ── RESULTS SECTION ── -->
+    <section id="resultsSection" class="view">
+
+      <!-- Results Header -->
+      <div class="results-topbar">
+        <div class="results-topbar-left">
+          <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M5 8h6M5 5h4M5 11h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <span>Verification Report</span>
+        </div>
+        <div class="results-topbar-right">
+          <button class="btn-ghost btn-sm" id="backToChatTopBtn">
+            <svg viewBox="0 0 14 14" fill="none"><path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            New
+          </button>
+          <button class="btn-ghost btn-sm" id="downloadPdfBtn">
+            <svg viewBox="0 0 14 14" fill="none"><path d="M7 2v7M4 7l3 3 3-3M3 12h8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Export
+          </button>
+        </div>
+      </div>
+
+      <!-- Executive Summary Banner -->
+      <div id="executiveSummaryDisplay"></div>
+      <div id="trustScoreDisplay" style="display:none;"></div>
+
+      <!-- Methodology Accordion -->
+      <details class="accordion-card">
+        <summary class="accordion-summary">
+          <div class="accordion-summary-left">
+            <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M7 4.5v2.8l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Scoring Methodology
+          </div>
+          <svg class="accordion-chevron" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="accordion-body">
+          <div class="method-step"><span class="method-num">01</span><div><strong>Claim Decomposition</strong><p>Input text split into atomic verifiable statements without using AI knowledge as a truth source.</p></div></div>
+          <div class="method-step"><span class="method-num">02</span><div><strong>Evidence Retrieval</strong><p>Wikipedia (encyclopedic) + SerpAPI (live web) queried per claim before any verdict is formed.</p></div></div>
+          <div class="method-step"><span class="method-num">03</span><div><strong>NLI Classification</strong><p>LLM classifies each claim↔source passage relationship: SUPPORT, CONTRADICT, or NO_DECISIVE_EVIDENCE.</p></div></div>
+          <div class="method-step"><span class="method-num">04</span><div><strong>Deterministic Aggregation</strong><p>Confidence = Σ(weight × SUPPORT) ÷ Σ(weight × decisive) × 100. Zero decisive evidence → N/A, never fabricated.</p></div></div>
+        </div>
+      </details>
+
+      <!-- View Switcher -->
+      <div class="tab-switcher">
+        <button class="tab-btn active" id="factualBtn">
+          Factual Claims
+        </button>
+        <button class="tab-btn" id="faithfulnessBtn" style="display:none;">
+          Faithfulness
+        </button>
+      </div>
+
+      <!-- Factual View -->
+      <div id="factualView" class="tab-view active">
+        <div id="sentenceBreakdown"></div>
+      </div>
+
+      <!-- Faithfulness View -->
+      <div id="faithfulnessView" class="tab-view">
+        <div id="faithfulnessDisplay"></div>
+      </div>
+
+      <!-- Footer Action -->
+      <div class="results-footer no-print">
+        <button class="btn-primary" id="newAnalysisBtn" style="width:100%;">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M8 2a6 6 0 110 12A6 6 0 018 2z" stroke="currentColor" stroke-width="1.4"/><path d="M5 8h6M8 5v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          Verify New Text
+        </button>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- ══════════════════════════════════════
+       SETTINGS MODAL
+       ══════════════════════════════════════ -->
+  <div id="settingsModal" class="modal-backdrop" style="display:none;" role="dialog" aria-modal="true" aria-label="API Settings">
+    <div class="modal">
+      <div class="modal-head">
+        <div class="modal-head-left">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M8 10a2 2 0 100-4 2 2 0 000 4z" stroke="currentColor" stroke-width="1.3"/><path d="M13.3 8a5.6 5.6 0 00-.1-.9l1.4-1.1-1.3-2.3-1.7.7A5.5 5.5 0 009.7 3.5L9.5 1.7h-3l-.2 1.8c-.5.2-1 .5-1.4.8L3.2 3.6 1.9 5.9l1.4 1.1A5.5 5.5 0 003.2 8c0 .3 0 .6.1.9L1.9 10l1.3 2.3 1.7-.7c.4.3.9.6 1.4.8l.2 1.8h3l.2-1.8c.5-.2 1-.5 1.4-.8l1.7.7L13.3 10l-1.4-1.1c.1-.3.1-.6.1-.9h1.3z" stroke="currentColor" stroke-width="1.2"/></svg>
+          <h3>API Configuration</h3>
+        </div>
+        <button class="icon-action modal-close" id="closeSettingsBtn" title="Close">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <p class="modal-note">API keys are stored locally in your browser only — never sent anywhere except the respective API endpoint.</p>
+
+        <!-- Groq Key -->
+        <div class="field-group">
+          <label class="field-label" for="groqApiKeyInput">
+            Groq API Key
+            <span class="optional-tag">LLM inference</span>
+          </label>
+          <div class="input-with-action">
+            <input type="password" id="groqApiKeyInput" class="field-input" placeholder="gsk_…" autocomplete="off" spellcheck="false">
+            <button type="button" class="input-action-btn" data-target="groqApiKeyInput" title="Toggle visibility">
+              <svg viewBox="0 0 16 16" fill="none" id="eyeIcon-groqApiKeyInput"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5z" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.3"/></svg>
+            </button>
+          </div>
+          <span class="field-hint">Get a free key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a></span>
+          <div class="test-row">
+            <button type="button" class="btn-ghost btn-sm" id="testGroqKeyBtn">Test Connection</button>
+            <span id="testKeyResult" class="test-status" style="display:none;"></span>
+          </div>
+        </div>
+
+        <!-- SerpAPI Key -->
+        <div class="field-group" style="margin-top:20px;">
+          <label class="field-label" for="serpApiKeyInput">
+            SerpAPI Key
+            <span class="optional-tag">Web search</span>
+          </label>
+          <div class="input-with-action">
+            <input type="password" id="serpApiKeyInput" class="field-input" placeholder="Leave blank for Wikipedia-only mode" autocomplete="off" spellcheck="false">
+            <button type="button" class="input-action-btn" data-target="serpApiKeyInput" title="Toggle visibility">
+              <svg viewBox="0 0 16 16" fill="none" id="eyeIcon-serpApiKeyInput"><path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5z" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.3"/></svg>
+            </button>
+          </div>
+          <span class="field-hint">Powers live Google web results. Without it, only Wikipedia is queried. Get one at <a href="https://serpapi.com/manage-api-key" target="_blank" rel="noopener">serpapi.com</a></span>
+        </div>
+
+        <div id="settingsStatus" class="settings-feedback" style="display:none;"></div>
+      </div>
+
+      <div class="modal-foot">
+        <button class="btn-ghost" id="resetDefaultKeysBtn">Clear Keys</button>
+        <button class="btn-ghost" id="cancelSettingsBtn">Cancel</button>
+        <button class="btn-primary" id="saveSettingsBtn">
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 2h8l2 2v8a1 1 0 01-1 1H3a1 1 0 01-1-1V2z" stroke="currentColor" stroke-width="1.2"/><path d="M5 13V8h4v5M5 2h4v3H5V2z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Save Settings
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

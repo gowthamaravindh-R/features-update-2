@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Verity AI Enhanced - Ultimate Fact Checker",
+  "version": "3.1.0",
+  "description": "Evidence-first fact verification with deterministic signal aggregation, multi-source validation, and faithfulness auditing.",
+  "permissions": [
+    "contextMenus",
+    "storage",
+    "sidePanel",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://api.groq.com/*",
+    "https://serpapi.com/*",
+    "https://en.wikipedia.org/*"
+  ],
+  "background": {
+    "service_worker": "src/background/background.js"
+  },
+  "side_panel": {
+    "default_path": "src/panel/sidepanel.html"
+  },
+  "action": {
+    "default_title": "Verity AI Enhanced - Detect Hallucinations",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}
